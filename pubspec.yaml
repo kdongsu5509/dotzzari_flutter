@@ -35,6 +35,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  dio: ^5.7.0
+  flutter_riverpod: ^2.5.1
+  google_fonts: ^6.2.1
+  json_annotation: ^4.9.0
+  retrofit: ^4.4.1
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +52,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.12
+  retrofit_generator: ^9.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -59,28 +68,28 @@ flutter:
   uses-material-design: true
 
   assets:
-    - image/
+    - asset/image/
 
   fonts:
     - family: NotoSans
       fonts:
-        - asset: font/NotoSansKR-Thin.ttf
+        - asset: asset/font/NotoSansKR-Thin.ttf
           weight: 100
-        - asset: font/NotoSansKR-SemiBold.ttf
+        - asset: asset/font/NotoSansKR-SemiBold.ttf
           weight: 600
-        - asset: font/NotoSansKR-Regular.ttf
+        - asset: asset/font/NotoSansKR-Regular.ttf
           weight: 400
-        - asset: font/NotoSansKR-Medium.ttf
+        - asset: asset/font/NotoSansKR-Medium.ttf
           weight: 500
-        - asset: font/NotoSansKR-Light.ttf
+        - asset: asset/font/NotoSansKR-Light.ttf
           weight: 300
-        - asset: font/NotoSansKR-ExtraLight.ttf
+        - asset: asset/font/NotoSansKR-ExtraLight.ttf
           weight: 200
-        - asset: font/NotoSansKR-ExtraBold.ttf
+        - asset: asset/font/NotoSansKR-ExtraBold.ttf
           weight: 800
-        - asset: font/NotoSansKR-Bold.ttf
+        - asset: asset/font/NotoSansKR-Bold.ttf
           weight: 700
-        - asset: font/NotoSansKR-Black.ttf
+        - asset: asset/font/NotoSansKR-Black.ttf
           weight: 900
 
   # To add assets to your application, add an assets section, like this:
