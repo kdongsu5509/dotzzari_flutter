@@ -100,7 +100,7 @@ class _ViewRootTabState extends State<ViewRootTab>
             label: '예약하기',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dataset_outlined),
+            icon: Icon(Icons.description_outlined),
             label: '예약 내역',
           ),
           BottomNavigationBarItem(
