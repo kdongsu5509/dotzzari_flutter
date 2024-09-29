@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import '../common/const/dozzari_color.dart';
 import '../common/dozzari_flexible_size.dart';
 
-Widget OrageButton(
-    BuildContext context,
-    String text,
-    double textSize,
+Widget OrangeButton(BuildContext context, String text, double textSize,
     double buttonHeight,
-    ) {
+    {VoidCallback? onPressed,}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: dwidth(context, 0.04)),
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         text,
         style: TextStyle(fontSize: dwidth(context, textSize)),

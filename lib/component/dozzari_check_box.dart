@@ -39,7 +39,7 @@ class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
                 _boxTitle(context),
                 _boxSubTitle(context),
                 _timeSelectBox(context, ref),
-                OrageButton(context, '도짜리 조회하기', 0.0425, 0.005),
+                OrangeButton(context, '도짜리 조회하기', 0.0425, 0.005),
               ],
             ),
           )),
