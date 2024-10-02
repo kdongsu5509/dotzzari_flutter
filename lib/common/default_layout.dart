@@ -39,14 +39,20 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0, // 스크롤시 앱바 그림자 제거
         backgroundColor: Colors.white,
-        title: Center(
-          child: Image.asset(
-            'asset/image/dozzari_tumyeong_logo.png',
-            height: dheight(context, 0.0275),
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'asset/image/dozzari_tumyeong_logo.png',
+              height: dheight(context, 0.0275),
+            ),
+          ],
         ),
+        centerTitle: true, //Row와 함께 이용하여 Ttile 가운데 정렬
       ),
       bottomNavigationBar: (widget.bottomNavigationBar != null)
           ? widget.bottomNavigationBar

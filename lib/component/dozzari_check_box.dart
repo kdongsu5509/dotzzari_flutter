@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../dozzari_provider/time_notifier.dart';
-import 'custom_time_select_box.dart';
 
 /**
  * 도짜리 이용 시작 시간 및 종료 시간을 선택하는 위젯입니다.
@@ -39,6 +38,9 @@ class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
                 _boxTitle(context),
                 _boxSubTitle(context),
                 _timeSelectBox(context, ref),
+                SizedBox(
+                  height: dheight(context, 0.015),
+                ),
                 OrangeButton(context, '도짜리 조회하기', 0.0425, 0.005),
               ],
             ),
@@ -64,7 +66,7 @@ Widget _timeSelectBox(
   WidgetRef ref,
 ) {
   TextStyle ts = TextStyle(
-    fontSize: dwidth(context, 0.0375),
+    fontSize: dwidth(context, 0.03),
     fontWeight: FontWeight.w500,
   );
 
@@ -99,11 +101,13 @@ Widget _timeSelectBox(
               },
               child: Row(
                 children: [
-                  Icon(Icons.access_time_rounded),
+                  Icon(Icons.access_time_rounded, size: dwidth(context, 0.035),),
+                  SizedBox(width: dwidth(context, 0.02)),
                   Text(
                     '시작 시간',
                     style: ts,
                   ),
+                  SizedBox(width: dwidth(context, 0.02)),
                   Text(
                     '${timeState.startHour.toString().padLeft(2, '0')}:${timeState.startMinute.toString().padLeft(2, '0')}',
                     style: ts.copyWith(color: BRAND_SECONDARY_COLOR),
@@ -120,7 +124,9 @@ Widget _timeSelectBox(
               },
               child: Row(
                 children: [
-                  Icon(Icons.access_time_rounded),
+                  Icon(Icons.access_time_rounded, size: dwidth(context, 0.035),),
+                  SizedBox(width: dwidth(context, 0.02\
+                  ]?)),
                   Text(
                     '종료 시간',
                     style: ts,
