@@ -45,4 +45,4 @@ app.*.map.json
 /android/app/release
 
 # server and login info
-/lib/dozzari_secret.dart
+lib/dozzari_secret.dart
