@@ -125,8 +125,7 @@ Widget _timeSelectBox(
               child: Row(
                 children: [
                   Icon(Icons.access_time_rounded, size: dwidth(context, 0.035),),
-                  SizedBox(width: dwidth(context, 0.02\
-                  ]?)),
+                  SizedBox(width: dwidth(context, 0.02)),
                   Text(
                     '종료 시간',
                     style: ts,

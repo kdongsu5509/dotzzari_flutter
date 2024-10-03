@@ -1,4 +1,5 @@
 import 'package:dotzzari/common/const/dozzari_color.dart';
+import 'package:dotzzari/view/d_dozzari_resv_status.dart';
 import 'package:flutter/material.dart';
 import '../common/default_layout.dart';
 import '../common/dozzari_flexible_size.dart';
@@ -53,10 +54,10 @@ class _ViewRootTabState extends State<ViewRootTab>
     TextStyle baseTextStyle = TextStyle(
         color: FONT_GRAY4,
         fontFamily: 'NotoSansKR',
-        fontSize: dwidth(context, 0.03));
+        fontSize: dwidth(context, 0.02));
     IconThemeData baseIconTheme = IconThemeData(
       color: FONT_GRAY4,
-      size: dwidth(context, 0.09),
+      size: dwidth(context, 0.07),
     );
 
     return DefaultLayout(
@@ -68,9 +69,7 @@ class _ViewRootTabState extends State<ViewRootTab>
             child: Text('도짜리 소개'),
           ),
           DozzariResv(),
-          Center(
-            child: Text('예약 내역'),
-          ),
+          DozzariResvStatus(),
           Center(
             child: Text('마이 페이지'),
           ),
@@ -101,7 +100,7 @@ class _ViewRootTabState extends State<ViewRootTab>
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.description_outlined),
-            label: '예약 내역',
+            label: '예약 현황',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_3_rounded),

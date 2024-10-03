@@ -6,7 +6,7 @@ import '../common/const/dozzari_color.dart';
 import '../common/dozzari_flexible_size.dart';
 import '../component/option_title_box.dart';
 import '../component/orange_button.dart';
-import 'c_dozzari_resv_final.dart';
+import 'd_dozzari_resv_status.dart';
 
 class DozzariResvDetail2 extends ConsumerStatefulWidget {
   const DozzariResvDetail2({super.key});
@@ -217,7 +217,7 @@ class _DozzariResvDetail2State extends ConsumerState<DozzariResvDetail2> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => DozzariResvFinal(),
+                      builder: (context) => DozzariResvStatus(),
                     ),
                   );
                 },
