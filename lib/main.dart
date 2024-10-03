@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dozzari_provider/provider_logger.dart';
 import 'dozzari_secret.dart';
 
@@ -34,6 +34,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English, no country code
+        Locale('ko', ''), // Korean, no country code
+      ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         splashColor: Colors.transparent,
@@ -41,7 +49,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'NotoSansKR',
         iconTheme: CupertinoIconThemeData(color: Colors.black),
       ),
-      home: const ViewRootTab(),
+      home: const Login(),
     );
   }
 }

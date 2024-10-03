@@ -27,16 +27,6 @@ class MainImageTile extends StatelessWidget {
   }
 }
 
-// Widget _blurredImagePart(BuildContext context) {
-//   return Image.asset(
-//     'asset/image/img.png', // 이미지 경로
-//     height: dheight(context, 0.2),
-//     width: dwidth(context, 1),
-//     fit: BoxFit.cover,
-//     alignment: Alignment.center,
-//   );
-// }
-
 //이미지 부분 (블러 처리된 이미지만)
 Widget _blurredImagePart(BuildContext context) {
   return ClipRect( // 이미지만 클립핑

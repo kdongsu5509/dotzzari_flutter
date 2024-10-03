@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dotzzari/common/dozzari_flexible_size.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
@@ -11,13 +12,21 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            Center(
-              child: Text('Login'),
-            ),
-            ElevatedButton(onPressed: (){}, child: Text('KAKAOLOGIN')),
-          ],
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                width: dwidth(context, 0.5),
+                'asset/image/dozzari_tumyeong_logo.png'
+              ),
+              SizedBox(height: dheight(context, 0.2)),
+              Image.asset(
+                'asset/image/kakao.png'
+              ),
+            ],
+          ),
         ),
       ),
     );

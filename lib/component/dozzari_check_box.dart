@@ -226,6 +226,7 @@ Widget _dateSelectBox(
                   height: dheight(context, 0.3),
                   color: Colors.white,
                   child: CupertinoDatePicker(
+                    dateOrder: DatePickerDateOrder.ymd,
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: DateTime.now(),
                     onDateTimeChanged: (DateTime value) {
@@ -258,6 +259,7 @@ Widget _dateSelectBox(
                   height: dheight(context, 0.3),
                   color: Colors.white,
                   child: CupertinoDatePicker(
+                    dateOrder: DatePickerDateOrder.ymd,
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: DateTime.now(),
                     onDateTimeChanged: (DateTime value) {
