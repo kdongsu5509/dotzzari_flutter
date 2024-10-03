@@ -59,7 +59,7 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout>
           : null,
       body: (widget.isDetail == null || widget.isDetail == false)
           ? Padding(
-              padding: EdgeInsets.all(dwidth(context, 0.05)),
+              padding: EdgeInsets.fromLTRB(dwidth(context, 0.05), dwidth(context, 0.0), dwidth(context, 0.05), dwidth(context, 0.05)),
               child: widget.child,
             )
           : widget.child,
