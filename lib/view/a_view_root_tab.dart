@@ -1,5 +1,6 @@
 import 'package:dotzzari/common/const/dozzari_color.dart';
 import 'package:dotzzari/view/d_dozzari_resv_status.dart';
+import 'package:dotzzari/view/e_dozzari_history.dart';
 import 'package:flutter/material.dart';
 import '../common/default_layout.dart';
 import '../common/dozzari_flexible_size.dart';
@@ -75,9 +76,7 @@ class _ViewRootTabState extends State<ViewRootTab>
           DozzariInfo(),
           DozzariResv(),
           DozzariResvStatus(),
-          Center(
-            child: Text('마이 페이지'),
-          ),
+          DozzariHistory(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
