@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotzzari/common/dozzari_flexible_size.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,16 +28,28 @@ class MainImageTile extends StatelessWidget {
 
 // 이미지 부분
 Image _imagePart(BuildContext context) {
-  return Image.asset(
+  return Image.file(
+    File('asset/image/main_img.png',), // 경로를 업로드된 이미지로 변경
     height: dheight(context, 0.215),
     width: dwidth(context, 1),
-    'asset/image/picnic_main_img.png',
-    color: Color(0xFF734B34).withOpacity(0.6),
+    color: Color(0xFF734B34).withOpacity(0.3),
     colorBlendMode: BlendMode.darken,
     fit: BoxFit.cover,
     alignment: Alignment.topCenter,
   );
 }
+
+// Image _imagePart(BuildContext context) {
+//   return Image.asset(
+//     height: dheight(context, 0.215),
+//     width: dwidth(context, 1),
+//     '',
+//     color: Color(0xFF734B34).withOpacity(0.8),
+//     colorBlendMode: BlendMode.darken,
+//     fit: BoxFit.cover,
+//     alignment: Alignment.topCenter,
+//   );
+// }
 
 // 텍스트 부분
 Widget _textPart(BuildContext context){
@@ -72,7 +86,7 @@ Widget _textPart(BuildContext context){
         ),
         SizedBox(height: dheight(context, 0.015)),
         Text(
-            '경북대학교 학생들을 위한 피크낵 세트 대여\n서비스입니다.\n뭐시기뭐시기를 추구하며, 뭐시기뭐시기 하기\n위해 노력하고 있습니다.\n오늘도 도짜리와 함께 즐거운 피크닉 되세요:)',
+            '경북대학교 학생들을 위한 피크낵 세트 대여\n서비스입니다.\n즐거운 캠퍼스 라이프 경험을 제공하기\n위해 노력하고 있습니다.\n오늘도 도짜리와 함께 즐거운 피크닉 되세요:)',
             style: TextStyle(
               color: Colors.white,
               fontSize: dwidth(context, 0.03),
