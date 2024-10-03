@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
+import '../retrofit_repo/req_no_token.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -13,13 +16,14 @@ class Login extends StatelessWidget {
             Center(
               child: Text('Login'),
             ),
-            ElevatedButton(onPressed: kakaoLogin, child: Text('KAKAOLOGIN')),
+            ElevatedButton(onPressed: (){}, child: Text('KAKAOLOGIN')),
           ],
         ),
       ),
     );
   }
 }
+
 
 Future<void> kakaoLogin() async{
   if(await isKakaoTalkInstalled()){

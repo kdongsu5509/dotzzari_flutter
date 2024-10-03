@@ -22,51 +22,53 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
   Widget build(BuildContext context) {
     bool isStartTapped = ref.watch(isStartTappedProvider);
     bool isEndTapped = ref.watch(isEndTappedProvider);
-
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: MainImageTile(),
-        ),
-        SliverToBoxAdapter(
-          child: DozzariCheckBox(),
-        ),
-        SliverToBoxAdapter(
-          child: (isStartTapped) ? CustomTimeSelectBox() : Container(),
-        ),
-        SliverToBoxAdapter(
-          child: (isEndTapped) ? CustomTimeSelectBox() : Container(),
-        ),
-        SliverToBoxAdapter(
-          child: Text(
-            '이용 가능한 도짜리',
-            style: TextStyle(
-              fontSize: dheight(context, 0.025),
-              fontWeight: FontWeight.bold,
+    return Padding(
+      padding: EdgeInsets.fromLTRB(dwidth(context, 0.05), dwidth(context, 0.0), dwidth(context, 0.05), dwidth(context, 0.05)),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: MainImageTile(),
+          ),
+          SliverToBoxAdapter(
+            child: DozzariCheckBox(),
+          ),
+          SliverToBoxAdapter(
+            child: (isStartTapped) ? CustomTimeSelectBox() : Container(),
+          ),
+          SliverToBoxAdapter(
+            child: (isEndTapped) ? CustomTimeSelectBox() : Container(),
+          ),
+          SliverToBoxAdapter(
+            child: Text(
+              '이용 가능한 도짜리',
+              style: TextStyle(
+                fontSize: dheight(context, 0.025),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        SliverList.separated(
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DozzariResvDetail()),
-                );
-              },
-              child: DozzariCard(),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              height: 0,
-              thickness: 1,
-              color: FONT_GRAY4,
-            );
-          },
-          itemCount: 5,
-        ),
-      ],
+          SliverList.separated(
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => DozzariResvDetail()),
+                  );
+                },
+                child: DozzariCard(),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                height: 0,
+                thickness: 1,
+                color: FONT_GRAY4,
+              );
+            },
+            itemCount: 5,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -26,7 +26,6 @@ class _DozzariResvDetail2State extends ConsumerState<DozzariResvDetail2> {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      isDetail: true,
       child: Stack(
         children: [
           Positioned(

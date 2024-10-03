@@ -21,7 +21,6 @@ class _DozzariResvState extends ConsumerState<DozzariResvDetail> {
   Widget build(BuildContext context) {
     List<int> quantities = List.filled(10, 0);
     return DefaultLayout(
-      isDetail: true,
       child: Stack(
         children: [
           Positioned(

@@ -19,12 +19,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class DefaultLayout extends ConsumerStatefulWidget {
   Widget child;
   BottomNavigationBar? bottomNavigationBar;
-  bool? isDetail;
+  bool? transparent;
 
   DefaultLayout({
     required this.child,
     this.bottomNavigationBar,
-    this.isDetail,
+    this.transparent,
     super.key,
   });
 
@@ -37,11 +37,11 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: (widget.transparent == true) ? Colors.transparent : Colors.white,
       appBar: AppBar(
         // automaticallyImplyLeading: false,
         scrolledUnderElevation: 0, // 스크롤시 앱바 그림자 제거
-        backgroundColor: Colors.white,
+        backgroundColor: (widget.transparent == true || widget.transparent != null) ? Colors.transparent : Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -57,12 +57,7 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout>
       bottomNavigationBar: (widget.bottomNavigationBar != null)
           ? widget.bottomNavigationBar
           : null,
-      body: (widget.isDetail == null || widget.isDetail == false)
-          ? Padding(
-              padding: EdgeInsets.fromLTRB(dwidth(context, 0.05), dwidth(context, 0.0), dwidth(context, 0.05), dwidth(context, 0.05)),
-              child: widget.child,
-            )
-          : widget.child,
+      body: widget.child,
     );
   }
 }

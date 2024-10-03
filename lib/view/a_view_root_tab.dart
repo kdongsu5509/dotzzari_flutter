@@ -3,6 +3,7 @@ import 'package:dotzzari/view/d_dozzari_resv_status.dart';
 import 'package:flutter/material.dart';
 import '../common/default_layout.dart';
 import '../common/dozzari_flexible_size.dart';
+import 'b_dozzari_info.dart';
 import 'c_dozzari_resv.dart';
 
 /**
@@ -54,9 +55,15 @@ class _ViewRootTabState extends State<ViewRootTab>
     TextStyle baseTextStyle = TextStyle(
         color: FONT_GRAY4,
         fontFamily: 'NotoSansKR',
-        fontSize: dwidth(context, 0.02));
+        fontSize: dwidth(context, 0.02),
+        fontWeight: FontWeight.w500
+    );
     IconThemeData baseIconTheme = IconThemeData(
       color: FONT_GRAY4,
+      size: dwidth(context, 0.07),
+    );
+    IconThemeData specialIconTheme = IconThemeData(
+      color: BG_WHITE,
       size: dwidth(context, 0.07),
     );
 
@@ -65,9 +72,7 @@ class _ViewRootTabState extends State<ViewRootTab>
         physics: NeverScrollableScrollPhysics(),
         controller: controller,
         children: [
-          Center(
-            child: Text('도짜리 소개'),
-          ),
+          DozzariInfo(),
           DozzariResv(),
           DozzariResvStatus(),
           Center(
@@ -76,11 +81,10 @@ class _ViewRootTabState extends State<ViewRootTab>
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: (index == 0) ? Colors.transparent : Colors.white,  // index에 따라 투명도 결정
         unselectedLabelStyle: baseTextStyle,
-        selectedLabelStyle:
-            baseTextStyle.copyWith(color: BRAND_SECONDARY_COLOR),
-        unselectedIconTheme: baseIconTheme,
+        selectedLabelStyle: baseTextStyle.copyWith(color: BRAND_SECONDARY_COLOR),
+        unselectedIconTheme: (index != 0) ? baseIconTheme : specialIconTheme,
         selectedIconTheme: baseIconTheme.copyWith(color: BRAND_SECONDARY_COLOR),
         type: BottomNavigationBarType.fixed,
         onTap: (int index) {
@@ -104,11 +108,12 @@ class _ViewRootTabState extends State<ViewRootTab>
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_3_rounded),
-            label: '마이페이지',
+            label: '히스토리',
           ),
         ],
         enableFeedback: false,
       ),
+      transparent : (index == 0) ? true : false,
     );
   }
 }
