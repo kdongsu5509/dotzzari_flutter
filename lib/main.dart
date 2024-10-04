@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dozzari_provider/provider_logger.dart';
-import 'dozzari_secret.dart';
+import 'secret/dozzari_secret.dart';
 
 void main() {
 
