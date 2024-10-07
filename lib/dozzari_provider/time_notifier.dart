@@ -6,7 +6,7 @@ class TimeNotifier extends StateNotifier<TimeState> {
           TimeState(
             DateTime.now().hour,
             DateTime.now().minute < 30 ? 0 : 30,
-            DateTime.now().hour,
+            DateTime.now().add(Duration(hours: 2)).hour,
             DateTime.now().minute < 30 ? 0 : 30,
           ),
         );

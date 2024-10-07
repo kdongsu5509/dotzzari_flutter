@@ -8,13 +8,14 @@ part 'req_no_token.g.dart';
 abstract class ReqNoToken {
   factory ReqNoToken(Dio dio, {String? baseUrl}) = _ReqNoToken;
 
-  @GET('/dozzaris')
-  Future<AvailableDozzarisResponse> getDozzaris();
+  @GET('/dozzaris?start={start}&end={end}')
+  Future<List<Dozzari>> getDozzaris(
+      @Path('start') String start, @Path('end') String end);
 }
 
 @JsonSerializable()
 class Dozzari {
-  final int dozzariId;
+  final String dozzariId;
   final String dozzariImageUrl;
   final String setInfo;
   final String availableTimes;

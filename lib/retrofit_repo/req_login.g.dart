@@ -1,37 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'req_no_token.dart';
+part of 'req_login.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Dozzari _$DozzariFromJson(Map<String, dynamic> json) => Dozzari(
-      dozzariId: json['dozzariId'] as String,
-      dozzariImageUrl: json['dozzariImageUrl'] as String,
-      setInfo: json['setInfo'] as String,
-      availableTimes: json['availableTimes'] as String,
+Token _$TokenFromJson(Map<String, dynamic> json) => Token(
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
     );
 
-Map<String, dynamic> _$DozzariToJson(Dozzari instance) => <String, dynamic>{
-      'dozzariId': instance.dozzariId,
-      'dozzariImageUrl': instance.dozzariImageUrl,
-      'setInfo': instance.setInfo,
-      'availableTimes': instance.availableTimes,
+Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
+      'accessToken': instance.accessToken,
+      'refreshToken': instance.refreshToken,
     };
 
-AvailableDozzarisResponse _$AvailableDozzarisResponseFromJson(
-        Map<String, dynamic> json) =>
-    AvailableDozzarisResponse(
-      availableDozzaris: (json['availableDozzaris'] as List<dynamic>)
-          .map((e) => Dozzari.fromJson(e as Map<String, dynamic>))
-          .toList(),
+ReqSignIn _$ReqSignInFromJson(Map<String, dynamic> json) => ReqSignIn(
+      email: json['email'] as String,
+      provider: json['provider'] as String,
     );
 
-Map<String, dynamic> _$AvailableDozzarisResponseToJson(
-        AvailableDozzarisResponse instance) =>
-    <String, dynamic>{
-      'availableDozzaris': instance.availableDozzaris,
+Map<String, dynamic> _$ReqSignInToJson(ReqSignIn instance) => <String, dynamic>{
+      'email': instance.email,
+      'provider': instance.provider,
     };
 
 // **************************************************************************
@@ -40,8 +32,8 @@ Map<String, dynamic> _$AvailableDozzarisResponseToJson(
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _ReqNoToken implements ReqNoToken {
-  _ReqNoToken(
+class _ReqLogin implements ReqLogin {
+  _ReqLogin(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -56,22 +48,20 @@ class _ReqNoToken implements ReqNoToken {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<Dozzari>> getDozzaris(
-    String start,
-    String end,
-  ) async {
+  Future<Token> signIn(ReqSignIn reqSignIn) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Dozzari>>(Options(
-      method: 'GET',
+    final _data = <String, dynamic>{};
+    _data.addAll(reqSignIn.toJson());
+    final _options = _setStreamType<Token>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/dozzaris?start=${start}&end=${end}',
+          'auth/signin',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -80,12 +70,10 @@ class _ReqNoToken implements ReqNoToken {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Dozzari> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Token _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Dozzari.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = Token.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

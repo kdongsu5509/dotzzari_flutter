@@ -11,7 +11,7 @@ class ProviderLogger extends ProviderObserver {
   ) {
     print("""
     
-    [PROVIDER IS UPDATED] Provider: ${provider.name ?? provider.runtimeType} || Previous Value: $previousValue || New Value: $newValue
+    [PROVIDER IS UPDATED] Provider: ${provider.name ?? provider.runtimeType} || Previous Value: ${previousValue.hashCode} || New Value: ${newValue.toString()}
     """);
   }
 

@@ -20,4 +20,11 @@ class DioInterceptor extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     return super.onResponse(response, handler);
   }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    print('ERROR MESSAGE => ${err.message}');
+    print('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path} HEADER: ${err.requestOptions.headers} DATA: ${err.requestOptions.data}');
+    return super.onError(err, handler);
+  }
 }

@@ -2,12 +2,15 @@ import 'package:dotzzari/common/const/dozzari_color.dart';
 import 'package:dotzzari/common/dozzari_flexible_size.dart';
 import 'package:dotzzari/component/orange_button.dart';
 import 'package:dotzzari/dozzari_provider/time_select_box_provider.dart';
+import 'package:dotzzari/retrofit_repo/req_no_token.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../dozzari_provider/date_notifier.dart';
 import '../dozzari_provider/time_notifier.dart';
+import '../retrofit_repo/custom_dio.dart';
+import '../secret/dozzari_secret.dart';
 
 /**
  * 각종 검색 조건을 조회할 때 사용하는 Frame 위젯입니다.
@@ -20,10 +23,11 @@ class DozzariCheckBox extends ConsumerStatefulWidget {
   final String buttonName;
   final bool isTime;
 
-  const DozzariCheckBox({required this.buttonName,
-    required this.boxExpain,
-    required this.isTime,
-    super.key});
+  const DozzariCheckBox(
+      {required this.buttonName,
+      required this.boxExpain,
+      required this.isTime,
+      super.key});
 
   @override
   ConsumerState<DozzariCheckBox> createState() => _DozzariCheckBoxState();
@@ -57,7 +61,25 @@ class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
                 SizedBox(
                   height: dheight(context, 0.0075),
                 ),
-                OrangeButton(context, widget.buttonName, 0.035, 0.005),
+                OrangeButton(
+                  context,
+                  widget.buttonName,
+                  0.035,
+                  0.005,
+                  onPressed: (widget.isTime)
+                      ? () async {
+                          final client =
+                              ReqNoToken(customDio, baseUrl: baseUrl);
+
+                          //AvailableDozzarisResponse
+                          final response = await client.getDozzaris(
+                            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${ref.watch(timeNotifierProvider).startHour.toString().padLeft(2, '0')}:${ref.watch(timeNotifierProvider).startHour.toString().padLeft(2, '0')}',
+                            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${ref.watch(timeNotifierProvider).endHour.toString().padLeft(2, '0')}:${ref.watch(timeNotifierProvider).endMinute.toString().padLeft(2, '0')}',
+                          );
+                          print(response);
+                        }
+                      : () {},
+                ),
               ],
             ),
           )),
@@ -65,8 +87,10 @@ class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
   }
 }
 
-Widget _boxTitle(BuildContext context,
-    String boxExpain,) {
+Widget _boxTitle(
+  BuildContext context,
+  String boxExpain,
+) {
   return Center(
     child: Text(
       boxExpain,
@@ -76,8 +100,10 @@ Widget _boxTitle(BuildContext context,
   );
 }
 
-Widget _timeSelectBox(BuildContext context,
-    WidgetRef ref,) {
+Widget _timeSelectBox(
+  BuildContext context,
+  WidgetRef ref,
+) {
   TextStyle ts = TextStyle(
     fontSize: dwidth(context, 0.03),
     fontWeight: FontWeight.w500,
@@ -129,9 +155,7 @@ Widget _timeSelectBox(BuildContext context,
                   ),
                   SizedBox(width: dwidth(context, 0.02)),
                   Text(
-                    '${timeState.startHour.toString().padLeft(
-                        2, '0')}:${timeState.startMinute.toString().padLeft(
-                        2, '0')}',
+                    '${timeState.startHour.toString().padLeft(2, '0')}:${timeState.startMinute.toString().padLeft(2, '0')}',
                     style: ts.copyWith(color: BRAND_SECONDARY_COLOR),
                   )
                 ],
@@ -161,8 +185,7 @@ Widget _timeSelectBox(BuildContext context,
                   ),
                   SizedBox(width: dwidth(context, 0.02)),
                   Text(
-                    '${timeState.endHour.toString().padLeft(2, '0')}:${timeState
-                        .endMinute.toString().padLeft(2, '0')}',
+                    '${timeState.endHour.toString().padLeft(2, '0')}:${timeState.endMinute.toString().padLeft(2, '0')}',
                     style: ts.copyWith(color: BRAND_SECONDARY_COLOR),
                   )
                 ],
@@ -174,9 +197,9 @@ Widget _timeSelectBox(BuildContext context,
 }
 
 Widget _dateSelectBox(
-    BuildContext context,
-    WidgetRef ref,
-    ) {
+  BuildContext context,
+  WidgetRef ref,
+) {
   TextStyle ts = TextStyle(
     fontSize: dwidth(context, 0.03),
     fontWeight: FontWeight.w500,
@@ -263,9 +286,7 @@ Widget _dateSelectBox(
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: DateTime.now(),
                     onDateTimeChanged: (DateTime value) {
-                      ref
-                          .read(dateNotifierProvider.notifier)
-                          .setEndDate(value);
+                      ref.read(dateNotifierProvider.notifier).setEndDate(value);
                     },
                   ),
                 ),
@@ -286,8 +307,9 @@ Widget _dateSelectBox(
   );
 }
 
-
-Widget _boxSubTitle(BuildContext context,) {
+Widget _boxSubTitle(
+  BuildContext context,
+) {
   return Center(
     child: Text(
       ' " 예약 가능 시간 : 10시 30분 ~ 22시\n반납 마감 시간 : 익일 00시 00분 "',

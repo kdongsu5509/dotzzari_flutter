@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'NotoSansKR',
         iconTheme: CupertinoIconThemeData(color: Colors.black),
       ),
-      home: const Login(),
+      home: const ViewRootTab(),
     );
   }
 }
