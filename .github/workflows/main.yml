@@ -1,0 +1,26 @@
+name: Push to Secondary Repo
+
+on:
+  push:
+    branches:
+      - main  # 원본 레포지토리의 기본 브랜치 (예: main)
+
+jobs:
+  push-to-secondary-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config user.name "kdongsu5509"  # GitHub 사용자 이름
+          git config user.email "kdongsu5509@gmail.com"  # GitHub 이메일 주소
+
+      - name: Add secondary repo as remote
+        run: |
+          git remote add secondary https://kdongsu5509:${{ secrets.SECONDARY_REPO_TOKEN }}@github.com/dozzari/dozzari_FE.git
+
+      - name: Push to Secondary Repo
+        run: |
+          git push secondary main  # 원본 레포지토리의 기본 브랜치를 푸시
