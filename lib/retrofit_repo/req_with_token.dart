@@ -9,8 +9,8 @@ abstract class ReqWithToken {
   factory ReqWithToken(Dio dio, {String? baseUrl}) = _ReqWithToken;
 
   //If you wanna refacotr this code, see the API DOCS 'Page'
-  @GET('api/pages/orders/{dozzariId}')
-  Future<OrderPageResponse> getOrderPage(@Path('dozzariId') String dozzariId);
+  @GET('api/pages/orders/{dozzariId}?start={start}&end={end}')
+  Future<OrderPageResponse> getOrderPage(@Path('dozzariId') String dozzariId, @Path('start') String start, @Path('end') String end);
 
   //OrderPage
   // @POST('/orders')
@@ -60,14 +60,12 @@ class OrderRequest {
 
 @JsonSerializable()
 class OrderPageResponse {
-  final int dozzariId;
-  final String title;
+  final String dozzariId;
   final int price;
   final List<Category> categories;
 
   OrderPageResponse({
     required this.dozzariId,
-    required this.title,
     required this.price,
     required this.categories,
   });

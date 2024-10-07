@@ -35,8 +35,7 @@ const _$PickUpLocationEnumMap = {
 
 OrderPageResponse _$OrderPageResponseFromJson(Map<String, dynamic> json) =>
     OrderPageResponse(
-      dozzariId: (json['dozzariId'] as num).toInt(),
-      title: json['title'] as String,
+      dozzariId: json['dozzariId'] as String,
       price: (json['price'] as num).toInt(),
       categories: (json['categories'] as List<dynamic>)
           .map((e) => Category.fromJson(e as Map<String, dynamic>))
@@ -46,7 +45,6 @@ OrderPageResponse _$OrderPageResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OrderPageResponseToJson(OrderPageResponse instance) =>
     <String, dynamic>{
       'dozzariId': instance.dozzariId,
-      'title': instance.title,
       'price': instance.price,
       'categories': instance.categories,
     };
@@ -112,7 +110,11 @@ class _ReqWithToken implements ReqWithToken {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<OrderPageResponse> getOrderPage(String dozzariId) async {
+  Future<OrderPageResponse> getOrderPage(
+    String dozzariId,
+    String start,
+    String end,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -124,7 +126,7 @@ class _ReqWithToken implements ReqWithToken {
     )
         .compose(
           _dio.options,
-          'api/pages/orders/${dozzariId}',
+          'api/pages/orders/${dozzariId}?start=${start}&end=${end}',
           queryParameters: queryParameters,
           data: _data,
         )

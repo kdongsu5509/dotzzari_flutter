@@ -27,6 +27,9 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
   late final resp;
   bool isLoading = true;
 
+  late final _start;
+  late final _end;
+
   // late final resp;
 
   @override
@@ -40,7 +43,7 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
   void initializing() async {
     final client = ReqNoToken(customDio, baseUrl: baseUrl);
 
-    String reqestMinute = (DateTime.now().minute < 30) ? '00' : '30';
+    String reqestMinute = (DateTime.now().minute > 30) ? '00' : '30';
 
     //AvailableDozzarisResponse
     // final response = await client.getDozzaris(
@@ -59,6 +62,14 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
       _length = response.length;
       resp = response;
       isLoading = false; // 로딩 상태 해제
+      // _start =
+      // '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${reqestMinute}';
+      // _end =
+      // '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().add(Duration(hours: 2)).hour.toString().padLeft(2, '0')}:${reqestMinute}';
+      _start =
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} 14:${reqestMinute}';
+      _end =
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} 16:${reqestMinute}';
     });
   }
 
@@ -135,8 +146,9 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      DozzariResvDetail(resp[index].dozzariId)),
+                                builder: (context) => DozzariResvDetail(
+                                    resp[index].dozzariId, _start, _end),
+                              ),
                             );
                           },
                           child: DozzariCard(index),

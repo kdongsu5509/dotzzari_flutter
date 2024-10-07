@@ -3,20 +3,29 @@ import 'package:dotzzari/common/dozzari_flexible_size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddOnItem extends StatelessWidget {
+class AddOnItem extends StatefulWidget {
   final String title;
   final String price;
   final int quantity;
+  bool isChecked;
   final VoidCallback onIncrease;
+  final ValueChanged<bool?> onCheck;
 
-  const AddOnItem({
+  AddOnItem({
     Key? key,
     required this.title,
     required this.price,
     required this.quantity,
     required this.onIncrease,
+    required this.onCheck,
+    required this.isChecked,
   }) : super(key: key);
 
+  @override
+  State<AddOnItem> createState() => _AddOnItemState();
+}
+
+class _AddOnItemState extends State<AddOnItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,20 +37,20 @@ class AddOnItem extends StatelessWidget {
               Checkbox(
                 fillColor: WidgetStateProperty.all(BRAND_SECONDARY_COLOR),
                 checkColor: BG_WHITE,
-                value: true,
-                onChanged: (value) {},
+                value: widget.isChecked,
+                onChanged: widget.onCheck,
               ),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                       fontSize: dwidth(context, 0.035),
                       fontWeight: FontWeight.w500),
                 ),
               ),
               Text(
-                price,
+                widget.price,
                 style: TextStyle(
                     fontSize: dwidth(context, 0.04),
                     fontWeight: FontWeight.w600),
@@ -61,7 +70,7 @@ class AddOnItem extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Text('${quantity}개',
+                    child: Text('${widget.quantity}개',
                         style: TextStyle(fontSize: dwidth(context, 0.04))),
                   ),
                   Container(
@@ -73,7 +82,7 @@ class AddOnItem extends StatelessWidget {
                         Icons.add,
                         size: dheight(context, 0.03),
                       ),
-                      onPressed: onIncrease,
+                      onPressed: widget.onIncrease,
                     ),
                   ),
                 ],
