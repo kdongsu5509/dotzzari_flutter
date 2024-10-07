@@ -4,6 +4,7 @@ import 'package:dotzzari/component/main_image_tile.dart';
 import 'package:dotzzari/component/dozzari_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../common/const/dozzari_color.dart';
 import '../common/dozzari_flexible_size.dart';
@@ -22,37 +23,50 @@ class DozzariResv extends ConsumerStatefulWidget {
 }
 
 class _DozzariResvState extends ConsumerState<DozzariResv> {
-
   late int _length = 3;
+  late final resp;
+  bool isLoading = true;
+
+  // late final resp;
 
   @override
   void initState() {
-    initializing();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initializing();
+    });
   }
 
   void initializing() async {
-    final client =
-    ReqNoToken(customDio, baseUrl: baseUrl);
+    final client = ReqNoToken(customDio, baseUrl: baseUrl);
 
     String reqestMinute = (DateTime.now().minute < 30) ? '00' : '30';
 
     //AvailableDozzarisResponse
+    // final response = await client.getDozzaris(
+    //   '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${reqestMinute}',
+    //   '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().add(Duration(hours: 2)).hour.toString().padLeft(2, '0')}:${reqestMinute}',
+    // );
     final response = await client.getDozzaris(
-      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${reqestMinute}',
-      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().add(Duration(hours: 2)).hour.toString().padLeft(2, '0')}:${reqestMinute}',
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} 14:${reqestMinute}',
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} 16:${reqestMinute}',
     );
-    ref.read(AvailableDozzariProvider.notifier).setAvailableDozzaris(response);
-
-    print("resp of function initializing : ${response}");
-
-    _length = response.length;
+    print('RESP : $response');
+    setState(() {
+      ref
+          .read(AvailableDozzariProvider.notifier)
+          .setAvailableDozzaris(response);
+      _length = response.length;
+      resp = response;
+      isLoading = false; // 로딩 상태 해제
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     bool isStartTapped = ref.watch(isStartTappedProvider);
     bool isEndTapped = ref.watch(isEndTappedProvider);
+
     return Padding(
       padding: EdgeInsets.fromLTRB(dwidth(context, 0.05), dwidth(context, 0.0),
           dwidth(context, 0.05), dwidth(context, 0.05)),
@@ -83,27 +97,60 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
               ),
             ),
           ),
-          SliverList.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => DozzariResvDetail()),
-                  );
-                },
-                child: DozzariCard(index),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                height: 0,
-                thickness: 1,
-                color: FONT_GRAY4,
-              );
-            },
-            itemCount: _length,
-          ),
+          (isLoading)
+              ? SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: dheight(context, 0.15),
+                      ),
+                      Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ],
+                  ),
+                )
+              : (resp.length == 0)
+                  ? SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: dheight(context, 0.15),
+                          ),
+                          Center(
+                            child: Text(
+                              '텅',
+                              style: GoogleFonts.akshar(
+                                fontSize: dheight(context, 0.05),
+                                color: FONT_GRAY4,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : SliverList.separated(
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DozzariResvDetail(resp[index].dozzariId)),
+                            );
+                          },
+                          child: DozzariCard(index),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Divider(
+                          height: 0,
+                          thickness: 1,
+                          color: FONT_GRAY4,
+                        );
+                      },
+                      itemCount: _length,
+                    ),
         ],
       ),
     );

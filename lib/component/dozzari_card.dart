@@ -48,7 +48,7 @@ class _DozzariCardState extends ConsumerState<DozzariCard> {
                   children: [
                     // Title
                     Text(
-                      '${availableDozzaris[widget.index].dozzariId}호',
+                      '도짜리 ${availableDozzaris[widget.index].dozzariId.replaceAll('dozzari', '')}호',
                       // '도짜리 1호',
                       style: TextStyle(fontSize: dwidth(context, 0.05), fontWeight: FontWeight.bold),
                     ),

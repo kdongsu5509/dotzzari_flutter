@@ -1,5 +1,6 @@
 import 'package:dotzzari/common/default_layout.dart';
 import 'package:dotzzari/component/option_title_box.dart';
+import 'package:dotzzari/retrofit_repo/req_with_token.dart';
 import 'package:dotzzari/view/c_dozzari_resv_detail_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,20 +9,44 @@ import '../common/const/dozzari_color.dart';
 import '../common/dozzari_flexible_size.dart';
 import '../component/add_on_item.dart';
 import '../component/orange_button.dart';
+import '../retrofit_repo/custom_dio.dart';
+import '../secret/dozzari_secret.dart';
 
 class DozzariResvDetail extends ConsumerStatefulWidget {
-  const DozzariResvDetail({super.key});
+  final String dozzariId;
+
+  const DozzariResvDetail(this.dozzariId, {super.key});
 
   @override
   ConsumerState<DozzariResvDetail> createState() => _DozzariResvState();
 }
 
 class _DozzariResvState extends ConsumerState<DozzariResvDetail> {
+  OrderPageResponse? resp;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    final client = ReqWithToken(customDio, baseUrl: baseUrl);
+
+    client.getOrderPage(widget.dozzariId).then(
+      (value) {
+        print('RESP : $value');
+        setState(() {
+          resp = value;
+          isLoading = false;
+        });
+      },
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<int> quantities = List.filled(10, 0);
     return DefaultLayout(
-      child: Stack(
+      child: (resp == null || isLoading) ? Center(child: CircularProgressIndicator()) : Stack(
         children: [
           Positioned(
             child: CustomScrollView(
@@ -69,7 +94,7 @@ class _DozzariResvState extends ConsumerState<DozzariResvDetail> {
                               ),
                               SizedBox(width: dwidth(context, 0.02)),
                               Text(
-                                '도짜리 3호',
+                                resp!.title,
                                 style: TextStyle(
                                     fontSize: dwidth(context, 0.075),
                                     fontWeight: FontWeight.bold),
@@ -108,7 +133,7 @@ class _DozzariResvState extends ConsumerState<DozzariResvDetail> {
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
+                        (BuildContext context, int index) {
                       return AddOnItem(
                         title: '종이컵 + 종이컵 홀더 10개',
                         price: '+1000원',

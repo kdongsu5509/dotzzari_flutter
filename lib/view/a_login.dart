@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
+import '../main.dart';
 import '../retrofit_repo/custom_dio.dart';
 import '../retrofit_repo/req_login.dart';
 import '../secret/dozzari_secret.dart';
@@ -112,5 +113,7 @@ void printUserInfo(
     dozzariStorage.write(key : 'refreshToken', value : value.refreshToken);
 
     print('ACCESS : ${value.accessToken} \n REFRESH : ${value.refreshToken}');
+
+    navigatorKey.currentState?.popUntil((route) => route.isFirst);
   });
 }

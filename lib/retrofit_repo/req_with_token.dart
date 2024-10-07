@@ -4,13 +4,13 @@ import 'package:retrofit/retrofit.dart';
 
 part 'req_with_token.g.dart';
 
-@RestApi(baseUrl: '{baseUrl}/api')
+@RestApi(baseUrl: '{baseUrl}')
 abstract class ReqWithToken {
   factory ReqWithToken(Dio dio, {String? baseUrl}) = _ReqWithToken;
 
   //If you wanna refacotr this code, see the API DOCS 'Page'
-  @GET('/pages/orders/{dozzariId}')
-  Future<OrderPageResponse> getOrderPage(@Path('dozzariId') int dozzariId);
+  @GET('api/pages/orders/{dozzariId}')
+  Future<OrderPageResponse> getOrderPage(@Path('dozzariId') String dozzariId);
 
   //OrderPage
   // @POST('/orders')

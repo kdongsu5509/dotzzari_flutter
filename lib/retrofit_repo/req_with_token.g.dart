@@ -102,7 +102,7 @@ class _ReqWithToken implements ReqWithToken {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= '{baseUrl}/api';
+    baseUrl ??= '{baseUrl}';
   }
 
   final Dio _dio;
@@ -112,7 +112,7 @@ class _ReqWithToken implements ReqWithToken {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<OrderPageResponse> getOrderPage(int dozzariId) async {
+  Future<OrderPageResponse> getOrderPage(String dozzariId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -124,7 +124,7 @@ class _ReqWithToken implements ReqWithToken {
     )
         .compose(
           _dio.options,
-          '/pages/orders/${dozzariId}',
+          'api/pages/orders/${dozzariId}',
           queryParameters: queryParameters,
           data: _data,
         )
