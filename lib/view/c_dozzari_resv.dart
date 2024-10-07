@@ -7,7 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../common/const/dozzari_color.dart';
 import '../common/dozzari_flexible_size.dart';
+import '../dozzari_provider/available_dozzari_provider.dart';
 import '../dozzari_provider/time_select_box_provider.dart';
+import '../retrofit_repo/custom_dio.dart';
+import '../retrofit_repo/req_no_token.dart';
+import '../secret/dozzari_secret.dart';
 import 'c_dozzari_resv_detail.dart';
 
 class DozzariResv extends ConsumerStatefulWidget {
@@ -18,6 +22,33 @@ class DozzariResv extends ConsumerStatefulWidget {
 }
 
 class _DozzariResvState extends ConsumerState<DozzariResv> {
+
+  late int _length = 3;
+
+  @override
+  void initState() {
+    initializing();
+    super.initState();
+  }
+
+  void initializing() async {
+    final client =
+    ReqNoToken(customDio, baseUrl: baseUrl);
+
+    String reqestMinute = (DateTime.now().minute < 30) ? '00' : '30';
+
+    //AvailableDozzarisResponse
+    final response = await client.getDozzaris(
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().hour.toString().padLeft(2, '0')}:${reqestMinute}',
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${DateTime.now().add(Duration(hours: 2)).hour.toString().padLeft(2, '0')}:${reqestMinute}',
+    );
+    ref.read(AvailableDozzariProvider.notifier).setAvailableDozzaris(response);
+
+    print("resp of function initializing : ${response}");
+
+    _length = response.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isStartTapped = ref.watch(isStartTappedProvider);
@@ -61,7 +92,7 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
                         builder: (context) => DozzariResvDetail()),
                   );
                 },
-                child: DozzariCard(),
+                child: DozzariCard(index),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
@@ -71,7 +102,7 @@ class _DozzariResvState extends ConsumerState<DozzariResv> {
                 color: FONT_GRAY4,
               );
             },
-            itemCount: 5,
+            itemCount: _length,
           ),
         ],
       ),

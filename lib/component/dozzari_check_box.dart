@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../dozzari_provider/available_dozzari_provider.dart';
 import '../dozzari_provider/date_notifier.dart';
 import '../dozzari_provider/time_notifier.dart';
 import '../retrofit_repo/custom_dio.dart';
@@ -34,6 +35,7 @@ class DozzariCheckBox extends ConsumerStatefulWidget {
 }
 
 class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -77,6 +79,8 @@ class _DozzariCheckBoxState extends ConsumerState<DozzariCheckBox> {
                             '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day.toString().padLeft(2, '0')} ${ref.watch(timeNotifierProvider).endHour.toString().padLeft(2, '0')}:${ref.watch(timeNotifierProvider).endMinute.toString().padLeft(2, '0')}',
                           );
                           print(response);
+
+                          ref.read(AvailableDozzariProvider.notifier).setAvailableDozzaris(response);
                         }
                       : () {},
                 ),
